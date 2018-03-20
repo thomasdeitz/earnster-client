@@ -14,6 +14,7 @@
 <script>
   import axios from 'axios';
   import JobsServices from '../Services/JobsServices';
+  import WorkersServices from '../Services/WorkersServices';
   
   export default {
     name: 'Home',
@@ -58,12 +59,14 @@
       }
     },
     created() {
-      
       JobsServices
         .getJobs()
         .then(jobs => { this.jobs = jobs.data})
         .catch(e => { this.errors = e});
-      this.getWorkers();
+      WorkersServices
+        .getWorkers()
+        .then(response => { this.workers = response.data; })
+        .catch(e => { this.errors.push(e) });
     }
       
   }
